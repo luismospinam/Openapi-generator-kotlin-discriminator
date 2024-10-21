@@ -1,0 +1,61 @@
+openapi: "3.0.3"
+info:
+  title: MS Pet API
+  version: 1.0.0
+  description: De API for testing the discriminator in openapi 6
+paths:
+  /api/projects:
+    get:
+      summary: get a pet
+      operationId: getPets
+      tags:
+        - pets
+      responses:
+        200:
+          description: Succes respons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PetResponse'
+
+components:
+  schemas:
+    PetResponse:
+      oneOf:
+        - $ref: '#/components/schemas/Cat'
+        - $ref: '#/components/schemas/Dog'
+        - $ref: '#/components/schemas/Lizard'
+      discriminator:
+        propertyName: petType
+    Cat:
+      type: object
+      # all other properties specific to a `Cat`
+      required:
+        - petType
+      properties:
+        catName:
+          type: string
+        petType:
+          type: string
+    Dog:
+      type: object
+      # all other properties specific to a `Dog`
+      required:
+        - petType
+      properties:
+        bark:
+          type: string
+        petType:
+          type: string
+    Lizard:
+      type: object
+      # all other properties specific to a `Lizard`
+      required:
+        - petType
+      properties:
+        lovesRocks:
+          type: boolean
+        petType:
+          type: string

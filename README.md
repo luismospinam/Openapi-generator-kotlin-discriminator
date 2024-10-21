@@ -1,0 +1,1 @@
+Openapi generator Kotlin project to show the bug when using discriminator property
